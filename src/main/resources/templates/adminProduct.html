@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace = "layoutAdmin :: head">
+</head>
+<body class="no-skin">
+	<header th:replace="layoutAdmin :: header"></header>
+	<div class="main-container ace-save-state" id="main-container">
+		<script type="text/javascript">
+			try{ace.settings.loadState('main-container')}catch(e){}
+		</script>
+
+		<div id="sidebar" class="sidebar responsive ace-save-state">
+			<script type="text/javascript">
+				try{ace.settings.loadState('sidebar')}catch(e){}
+			</script>
+			<ul class="nav nav-list">
+				<li class="">
+					<a href="/#">
+						<i class="menu-icon fa fa-tachometer"></i>
+						<span class="menu-text"> Trang chủ </span>
+					</a>
+
+					<b class="arrow"></b>
+				</li>
+				<li>
+					<a href="/#">
+						<i class="menu-icon fa fa-pencil-square-o"></i>
+						<span class="menu-text">Dữ liệu sản phẩm</span>
+					</a>
+				</li>
+				<li>
+					<a href="/#">
+						<i class="menu-icon fa fa-pencil-square-o"></i>
+						<span class="menu-text">Dữ liệu khách hàng</span>
+					</a>
+				</li>
+			</ul>
+			<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+				<i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+			</div>
+		</div>
+		<div class="main-content">
+			<div class="main-content-inner">
+				<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+					<ul class="breadcrumb">
+						<li>
+							<i class="ace-icon fa fa-home home-icon"></i>
+							<a href="#">Home</a>
+						</li>
+					</ul>
+				</div>
+				<div class="page-content">					
+					<div class="row">
+						<div class="col-xs-12">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="row">
+											<div class="column-addProduct">
+												<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="margin-left: 70px; margin-top: 30px; width: 200px;">THÊM SẢN PHẨM</button>
+												<!-- Modal -->
+												<div class="modal fade" id="myModal" role="dialog">
+												  <div class="modal-dialog"> 
+												    <!-- Modal content-->
+												    <form id="form-product" action="" method="post">
+													    <div class="modal-content">
+													      <div class="modal-body">
+														    <label for="name">TÊN SẢN PHẨM:</label>
+														    <input type="text" class="form-control" id="name" placeholder="Enter name" name="name"><br/>
+														    <label for="price">GIÁ TIỀN:</label>
+														    <input type="text" class="form-control" id="price" placeholder="Enter price" name="price"><br/>
+														    <label for="image">HÌNH SẢN PHẨM:</label>
+														    <input type="file" class="form-control" id="image" placeholder="Enter image" name="image"><br/>
+													    	<label for="product-portfolio">DANH MỤC:</label>    	
+														    <select id="dropdownListPortfolio">
+														      <th:block th:each="portfolio : ${listPortfolio}">
+															      <option name="portfolio" class="portfolio"><span th:text="${portfolio.getPortfolioName()}"></span></option>
+															   </th:block>
+														    </select><br/><br/>    			
+														    <label for="description">MÔ TẢ SẢN PHẨM:</label>
+														    <textarea class="form-control" rows="5" id="description" name="description"></textarea><br/>
+														    <label for="feature">TÍNH NĂNG SẢN PHẨM:</label>
+															<div class="widget-body">
+																<div class="widget-main no-padding">
+																	<textarea data-provide="markdown" data-iconlibrary="fa" rows="7" data-hidden-buttons = "Image" name="feature" id="feature">														
+																	</textarea>
+																</div>	
+															</div>
+													      </div>
+													    </div>
+												    </form>
+												    <div class="modal-footer">
+												      	<button type="button" class="btn btn-sm btn-purple btn-addProduct">
+															<i class="ace-icon fa fa-floppy-o bigger-125"></i>
+															<span class="bigger-110">Thêm sản phẩm</span>
+														</button>
+												    	<button id="btn-reset" type="reset" class="width-35 pull-right btn btn-sm">
+															<i class="ace-icon fa fa-refresh"></i>
+															<span class="bigger-110">Reset</span>
+														</button>
+												    </div>
+												  </div>
+												</div>
+											</div>
+										</div>
+										<table class="table">
+										    <thead>
+										      <tr id="tr">
+										        <th>Tên SP</th>
+										        <th>Giá SP</th>
+										        <th>Hình SP</th>
+										        <th>Xóa, Sửa</th>
+										      </tr>
+										    </thead>
+										    <tbody>
+										    	<th:block th:each="product : ${listProduct}">
+											      <tr>
+											         <td th:text="${product.getProductName()}" class="changeText"></td>
+											         <td th:text="${product.getProductPrice()}" class="changeText"></td>
+							         				 <td><img th:src="${product.getProductImage()}" class="frame-image"/></td>
+							         				 <td style="display:none;" th:text="${product.getProductId()}" class="idProduct"></td> 
+											         <td><button type="button" class="btn btn-warning btn-md btn-deleteProduct">Xóa</button>
+											         <button type="button" class="btn btn-success btn-md btn-updateProduct" data-toggle="modal" data-target="#myModal1">Sửa</button></td>	
+											      </tr>
+											   </th:block>
+										    </tbody>
+										  </table>				  	
+									  	<div class="modal fade" id="myModal1" role="dialog">
+										    <div class="modal-dialog">								    
+										      <div class="modal-content">
+										        <div class="modal-header">
+										          <button type="button" class="close" data-dismiss="modal"></button>
+										          <h4 class="modal-title">Nội dung chỉnh sửa</h4>
+										        </div>
+										        <div class="modal-body">
+										          	<form id="form-updateProduct" action="" method="post">
+													    <div class="modal-content">
+													      <div class="modal-body">
+														    <label for="name">TÊN SẢN PHẨM:</label>
+														    <input type="text" class="form-control" id="name" placeholder="Enter name" name="name"><br/>
+														    <label for="price">GIÁ TIỀN:</label>
+														    <input type="text" class="form-control" id="price" placeholder="Enter price" name="price"><br/>
+														    <label for="image">HÌNH SẢN PHẨM:</label>
+														    <input type="file" class="form-control" id="image" placeholder="Enter image" name="image"><br/>
+													    	<label for="product-portfolio">DANH MỤC:</label>    	
+														    <select id="dropdownListPortfolio">
+														      <th:block th:each="portfolio : ${listPortfolio}">
+															      <option name="portfolio" class="portfolio"><span th:text="${portfolio.getPortfolioName()}"></span></option>
+															   </th:block>
+														    </select><br/><br/>    			
+														    <label for="description">MÔ TẢ SẢN PHẨM:</label>
+														    <textarea class="form-control" rows="5" id="description" name="description"></textarea><br/>
+														    <label for="feature">TÍNH NĂNG SẢN PHẨM:</label>
+															<div class="widget-body">
+																<div class="widget-main no-padding">
+																	<textarea data-provide="markdown" data-iconlibrary="fa" rows="7" data-hidden-buttons = "Image" name="feature" id="feature">														
+																	</textarea>
+																</div>	
+															</div>
+													      </div>
+													    </div>
+												    </form>
+												    <div class="modal-footer">
+												      	<button type="button" class="btn btn-sm btn-purple btn-confirmUpdateProduct">
+															<i class="ace-icon fa fa-floppy-o bigger-125"></i>
+															<span class="bigger-110">Sửa sản phẩm</span>
+														</button>
+												    	<button id="btn-reset" type="reset" class="width-35 pull-right btn btn-sm">
+															<i class="ace-icon fa fa-refresh"></i>
+															<span class="bigger-110">Reset</span>
+														</button>
+												    </div>
+										        </div>
+										      </div>										      
+										    </div>
+									 	</div>											  				
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<footer th:replace = "layoutAdmin :: footer"></footer>
+</body>
+</html>

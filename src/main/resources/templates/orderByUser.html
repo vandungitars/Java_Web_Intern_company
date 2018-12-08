@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace = "layoutAdmin :: head">
+</head>
+<body class="no-skin">
+	<header th:replace="layoutAdmin :: header"></header>
+	<div class="main-container ace-save-state" id="main-container">
+		<script type="text/javascript">
+			try{ace.settings.loadState('main-container')}catch(e){}
+		</script>
+
+		<div id="sidebar" class="sidebar responsive ace-save-state">
+			<script type="text/javascript">
+				try{ace.settings.loadState('sidebar')}catch(e){}
+			</script>
+			<ul class="nav nav-list">
+				<li class="">
+					<a href="/#">
+						<i class="menu-icon fa fa-tachometer"></i>
+						<span class="menu-text"> Trang chủ </span>
+					</a>
+
+					<b class="arrow"></b>
+				</li>
+				<li>
+					<a href="/test2">
+						<i class="menu-icon fa fa-pencil-square-o"></i>
+						<span class="menu-text">Dữ liệu sản phẩm</span>
+					</a>
+				</li>
+				<li>
+					<a href="/test2">
+						<i class="menu-icon fa fa-pencil-square-o"></i>
+						<span class="menu-text">Dữ liệu khách hàng</span>
+					</a>
+				</li>
+			</ul>
+			<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+				<i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+			</div>
+		</div>
+		<div class="main-content">
+			<div class="main-content-inner">
+				<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+					<ul class="breadcrumb">
+						<li>
+							<i class="ace-icon fa fa-home home-icon"></i>
+							<a href="#">Home</a>
+						</li>
+					</ul>
+				</div>
+				<div class="page-content">					
+					<div class="row">
+						<div class="col-xs-12">
+								<div class="row">
+									<div class="col-sm-12">
+										<table class="table">
+										    <thead>
+										      <tr id="tr">
+										        <th>Tên SP</th>
+										        <th>Giá</th>
+										        <th>Số lượng mua</th>
+										        <th>Tổng giá</th>
+										        <th>Địa chỉ</th>
+										        <th>Phone</th>
+										        <th>Ngày mua</th>
+										      </tr>
+										    </thead>
+										    <tbody>
+											    	<th:block th:each="detailOrder : ${listDetailOrder}">
+												      <tr>
+												         <td th:text="${detailOrder.getNameProduct()}"></td>
+												         <td th:text="${detailOrder.getPriceProduct()}"></td>
+								         				 <td th:text="${detailOrder.getCount()}"></td>
+								         				 <td th:text="${detailOrder.getTotalPrice()}"></td>
+								         				 <td th:text="${detailOrder.getAddressCustomer()}"></td>
+								         				 <td th:text="${detailOrder.getPhoneCustomer()}"></td>
+								         				 <td th:text="${detailOrder.getDateOrder()}"></td>
+								         				 <!-- <td style="display:none;" th:text="${user.getId()}" class="idUser"></td>
+												         <td><button type="button" class="btn btn-success btn-md"><a th:href="@{'/admin/user/' + ${user.getId()}}">Hóa đơn</a></button></td> -->	
+												      </tr>
+												   </th:block>
+												   
+										    </tbody>
+										  </table>				  											  				
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<footer th:replace = "layoutAdmin :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+	<title>Cửa hàng đồ công nghệ</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+</head>
+<body id="body-login">
+	<div id="body-fex-login">
+		<div id="container-login">
+			<div id="container-login-left">
+			</div>
+			<div id="container-login-right">
+				<div id="header-login">
+					<span><a id="login"  onclick="login()" style="color: red;">Đăng nhập</a></span> <strong>/</strong>
+					<span><a id="logup" onclick="logup()" style="color: black;">Đăng ký</a></span>
+					<script type="text/javascript">
+						function login() {
+							document.getElementById("login").style.color = "red";
+							document.getElementById("logup").style.color = "black";
+						}
+						function logup() {
+							document.getElementById("logup").style.color = "red";
+							document.getElementById("login").style.color = "black";
+						}
+					</script>
+					<script type="text/javascript">
+						function checkPassword() {
+							  if (document.getElementById("password").value != document.getElementById("rpassword").value) {
+							    //document.getElementById("statusPassword").innerHTML = "Check out Password!!!";
+							    alert("Check out Repeat password!!!");
+							  }
+						}					
+					</script>
+				</div>
+				<div id="container-center-login-right">				
+					<p th:if="${param.error}" class="error">Invalid username or password</p>
+       				<p th:if="${param.logout}" class="success">You have been logged out</p>
+					<form id="form-login" th:action="@{/j_spring_security_login}" method="POST">					
+					  <div class="container">
+					    <label for="username"><b>UserName</b></label>
+					    <input type="text" placeholder="Enter UserName" name="username" required>						
+					    <label for="password"><b>Password</b></label>
+					    <input type="password" placeholder="Enter Password" name="password" required>						        
+					    <button id="btn-login" type="submit">Login</button>
+					    <label>
+					      <input type="checkbox" checked="checked" name="remember"> Remember me
+					    </label>
+					  </div>					
+					  <div class="container" style="background-color:#f1f1f1">
+					    <!-- <button id="btn-cancel-login" type="button" class="cancelbtn">Cancel</button> -->
+					    <span class="psw">Forgot <a href="#">password?</a></span>
+					  </div>
+					</form>	
+																								
+					<form id="form-logup" th:action="@{/j_spring_security_login}" method="POST">
+					    <label for="username"><b>UserName</b></label>
+					    <input type="text" placeholder="Enter Username" name="username" required>				    
+					    <label for="phone"><b>Phone</b></label>
+					    <input type="password" placeholder="Enter Password" id="password" name="password" required>
+					    <label for="rpassword"><b>Repeat Password</b></label>
+					    <input type="password" placeholder="Enter Repeat Password" id="rpassword" name="rpassword" required>
+					    <p id="statusPassword"></p>						        
+					    <button id="btn-register" type="submit" onkeyup="checkPassword()">Logup</button>							 					
+					    <div class="container" style="background-color:#f1f1f1">
+					       <button id="btn-cancel-logup" type="button" class="cancelbtn">Cancel</button>
+					    </div>
+					</form>	
+				</div>
+				<div id="container-social-login">				
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
